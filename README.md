@@ -1,1 +1,4 @@
-# architecture-propdevelopment
+# Задание 1. Разработка проверочного листа по безопасности данных
+
+- [Описание решения](./Task1/README.md)
+- [Mindmap](./Task1/mindmap.drawio)
