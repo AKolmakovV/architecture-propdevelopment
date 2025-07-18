@@ -1,0 +1,36 @@
+@startuml
+title Умный дом - монолитное решение
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+top to bottom direction
+
+Person(customer, "Собственник")
+
+Enterprise_Boundary(application, "PropDevelopment Умный дом") {
+    Container(mobileAppContainer, "Мобильное приложение", "Mobile app(iOS, Android)")
+    Container(tenantCoreAppContainer, "Приложение для предоставления услуг собственникам", "Container: Kotlin, SpringBoot")
+
+    System_Boundary(smartIntercomSystem, "Интеллектуальный домофон") {
+        Container(smartIntercomSystemContainer, "Бэкенд управления функциями домофона", "Java")
+    }
+    System_Boundary(smartGatesSystem, "Интеллектуальный шлагбаум") {
+        Container(smartGatesContainer, "Бэкенд управления функциями шлагбаум", "Java")
+    }
+}
+
+System_Ext(electronicDoorService, "Домофон", "(партнерский сервис)")
+System_Ext(barrierService, "Умный шлагбаум", "(партнерский сервис)")
+
+Rel(customer, mobileAppContainer, "Витрина для сервисов умного дома")
+Rel(mobileAppContainer, tenantCoreAppContainer, "")
+Rel(tenantCoreAppContainer, smartIntercomSystemContainer, "")
+Rel(tenantCoreAppContainer, smartGatesContainer, "")
+
+Rel(smartIntercomSystemContainer, electronicDoorService, "GET/POST HTTPS", "")
+Rel(smartGatesContainer, barrierService, "GET/POST HTTPS", "")
+
+
+@enduml
+
