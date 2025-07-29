@@ -1,0 +1,36 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: dev_admin
+rules:
+- apiGroups: ["", "apps", "rbac.authorization.k8s.io", "networking.k8s.io"]
+  resources: ["deployments", "replicasets", "pods", "services", "configmaps", "ingresses"]
+  verbs: ["get", "list", "create", "update", "watch", "patch", "delete"] 
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: dev_ops
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["deployments", "replicasets", "pods", "services", "configmaps"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"] 
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: viewer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps"]
+    verbs: ["get", "list"]
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret_admin
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create", "delete", "update", "watch"]
+
